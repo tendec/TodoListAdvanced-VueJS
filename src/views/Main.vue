@@ -3,7 +3,7 @@
     <h3 class="title-page">CARDS</h3>
     <button class="button" id="btn-add">+</button>
     <button class="button" id="btn-remove">-</button>
-    <button class="button" id="btn-logout" v-on:click="onLogoutBtnClick">
+    <button class="button" id="btn-logout" @click="onLogoutBtnClick">
       Log out
     </button>
   </div>
@@ -15,8 +15,10 @@ export default {
   data() {
     return {}
   },
-  method: {
+  methods: {
     onLogoutBtnClick() {
+      this.$store.commit('setCurrentUser', null)
+      this.$store.commit('saveData')
       this.$router.push({ name: 'Login' })
     }
   }

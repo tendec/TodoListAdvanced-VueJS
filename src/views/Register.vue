@@ -7,6 +7,7 @@
       class="input-info"
       id="register-username"
       placeholder="Username"
+      autocomplete="off"
     />
     <input
       v-model="input.password"
@@ -14,6 +15,7 @@
       class="input-info"
       id="register-password"
       placeholder="Password"
+      autocomplete="off"
     />
     <input
       v-model="input.cfpassword"
@@ -21,17 +23,19 @@
       class="input-info"
       id="register-cfpassword"
       placeholder="Confirm Password"
+      autocomplete="off"
     />
-    <button class="button" id="btn-create" v-on:click="onCreateBtnClick">
+    <button class="button" id="btn-create" @click="onCreateBtnClick">
       Create
     </button>
-    <button class="button" id="btn-back" v-on:click="onBackBtnClick">
+    <button class="button" id="btn-back" @click="onBackBtnClick">
       Back
     </button>
   </div>
 </template>
 
 <script>
+import User from '../assets/class/user.js'
 export default {
   name: 'Register',
   data() {
@@ -48,7 +52,6 @@ export default {
       let users = this.$store.state.users
       let usernames = []
       let passwords = []
-      console.log(users)
       for (let i = 0; i < users.length; i++) {
         usernames.push(users[i].username)
         passwords.push(users[i].password)
@@ -61,14 +64,14 @@ export default {
         alert('Password not match!')
       } else {
         this.addUser(this.input.username, this.input.cfpassword)
-        // this.$router.push({ name: 'Main' })
+        this.input.username = ''
+        this.input.password = ''
+        this.input.cfpassword = ''
+        this.$router.push({ name: 'Main' })
       }
     },
     addUser(username, password) {
-      let user = {
-        username: username,
-        password: password
-      }
+      let user = new User(username, password)
       this.$store.commit('addUser', user)
       this.$store.commit('setCurrentUser', user)
       this.$store.commit('saveData')
@@ -76,6 +79,11 @@ export default {
     onBackBtnClick() {
       this.$router.push({ name: 'Login' })
     }
+  },
+  mounted() {
+    window.addEventListener('load', () => {
+      this.$store.commit('loadData')
+    })
   }
 }
 </script>

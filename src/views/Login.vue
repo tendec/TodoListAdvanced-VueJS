@@ -7,6 +7,7 @@
       class="input-info"
       id="login-username"
       placeholder="Username"
+      autocomplete="off"
     />
     <input
       v-model="input.password"
@@ -14,11 +15,12 @@
       class="input-info"
       id="login-password"
       placeholder="Password"
+      autocomplete="off"
     />
-    <button class="button" id="btn-login" v-on:click="onLoginBtnClick">
+    <button class="button" id="btn-login" @click="onLoginBtnClick">
       Login
     </button>
-    <button class="button" id="btn-register" v-on:click="onRegisterBtnClick">
+    <button class="button" id="btn-register" @click="onRegisterBtnClick">
       Create New Account
     </button>
   </div>
@@ -26,6 +28,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import User from '../assets/class/user.js'
 export default {
   name: 'Login',
   data() {
@@ -55,7 +58,10 @@ export default {
       } else if (usernames.includes(this.input.username)) {
         let index = usernames.indexOf(this.input.username)
         if (this.input.password == passwords[index]) {
-          this.setUser(this.input.username, this.input.password)
+          this.setCurrentUser(this.input.username, this.input.password)
+          this.input.username = ''
+          this.input.password = ''
+          this.$router.push({ name: 'Main' })
         } else {
           alert('Username or Password incorrect!')
         }
@@ -63,16 +69,19 @@ export default {
         alert('Username or Password incorrect!')
       }
     },
-    setUser(username, password) {
-      let user = {
-        username: username,
-        password: password
-      }
+    setCurrentUser(username, password) {
+      let user = new User(username, password)
       this.$store.commit('setCurrentUser', user)
+      this.$store.commit('saveData')
     },
     onRegisterBtnClick() {
       this.$router.push({ name: 'Register' })
     }
+  },
+  mounted() {
+    window.addEventListener('load', () => {
+      this.$store.commit('loadData')
+    })
   }
 }
 </script>
@@ -92,6 +101,9 @@ export default {
   padding: 5px;
   border-radius: 5px;
   width: 200px;
+}
+.invalid {
+  background-color: lightcoral;
 }
 .button {
   margin: 0 auto;
