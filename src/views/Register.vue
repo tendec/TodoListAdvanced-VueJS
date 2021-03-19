@@ -8,22 +8,28 @@
       id="register-username"
       placeholder="Username"
       autocomplete="off"
+      :class="{ invalid: validation }"
+      @input="resetInputValidation"
     />
     <input
       v-model="input.password"
-      type="text"
+      type="password"
       class="input-info"
       id="register-password"
       placeholder="Password"
       autocomplete="off"
+      :class="{ invalid: validation }"
+      @input="resetInputValidation"
     />
     <input
       v-model="input.cfpassword"
-      type="text"
+      type="password"
       class="input-info"
       id="register-cfpassword"
       placeholder="Confirm Password"
       autocomplete="off"
+      :class="{ invalid: validation }"
+      @input="resetInputValidation"
     />
     <button class="button" id="btn-create" @click="onCreateBtnClick">
       Create
@@ -44,7 +50,8 @@ export default {
         username: '',
         password: '',
         cfpassword: ''
-      }
+      },
+      validation: false
     }
   },
   methods: {
@@ -58,10 +65,13 @@ export default {
       }
       if (usernames.includes(this.input.username)) {
         alert('Username existed!')
+        this.validation = true
       } else if (this.input.username == '') {
         alert('Type info!')
+        this.validation = true
       } else if (this.input.password !== this.input.cfpassword) {
         alert('Password not match!')
+        this.validation = true
       } else {
         this.addUser(this.input.username, this.input.cfpassword)
         this.input.username = ''
@@ -75,6 +85,9 @@ export default {
       this.$store.commit('addUser', user)
       this.$store.commit('setCurrentUser', user)
       this.$store.commit('saveData')
+    },
+    resetInputValidation() {
+      this.validation = false
     },
     onBackBtnClick() {
       this.$router.push({ name: 'Login' })
@@ -104,12 +117,16 @@ export default {
   border-radius: 5px;
   width: 200px;
 }
+.invalid {
+  background-color: lightcoral;
+}
 .button {
   margin: 0 auto;
   border-radius: 5px;
   padding: 5px 15px;
   width: fit-content;
   background: white;
+  cursor: pointer;
 }
 #btn-create {
   margin-bottom: 50px;

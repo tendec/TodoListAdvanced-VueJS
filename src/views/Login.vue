@@ -8,14 +8,17 @@
       id="login-username"
       placeholder="Username"
       autocomplete="off"
+      :class="{ invalid: validation }"
+      @input="resetInputValidation"
     />
     <input
       v-model="input.password"
-      type="text"
+      type="password"
       class="input-info"
       id="login-password"
       placeholder="Password"
       autocomplete="off"
+      :class="{ invalid: validation }"
     />
     <button class="button" id="btn-login" @click="onLoginBtnClick">
       Login
@@ -36,7 +39,8 @@ export default {
       input: {
         username: '',
         password: ''
-      }
+      },
+      validation: false
     }
   },
   computed: {
@@ -55,6 +59,7 @@ export default {
       }
       if (this.input.username == '' || this.input.password == '') {
         alert('Type info!')
+        this.validation = true
       } else if (usernames.includes(this.input.username)) {
         let index = usernames.indexOf(this.input.username)
         if (this.input.password == passwords[index]) {
@@ -64,15 +69,20 @@ export default {
           this.$router.push({ name: 'Main' })
         } else {
           alert('Username or Password incorrect!')
+          this.validation = true
         }
       } else {
         alert('Username or Password incorrect!')
+        this.validation = true
       }
     },
     setCurrentUser(username, password) {
       let user = new User(username, password)
       this.$store.commit('setCurrentUser', user)
       this.$store.commit('saveData')
+    },
+    resetInputValidation() {
+      this.validation = false
     },
     onRegisterBtnClick() {
       this.$router.push({ name: 'Register' })
@@ -111,6 +121,7 @@ export default {
   padding: 5px 15px;
   width: fit-content;
   background: white;
+  cursor: pointer;
 }
 #btn-login {
   margin-bottom: 50px;
