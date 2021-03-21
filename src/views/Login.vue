@@ -53,9 +53,11 @@ export default {
       let users = this.$store.state.users
       let usernames = []
       let passwords = []
+      let cards = []
       for (let i = 0; i < users.length; i++) {
         usernames.push(users[i].username)
         passwords.push(users[i].password)
+        cards.push(users[i].cards)
       }
       if (this.input.username == '' || this.input.password == '') {
         alert('Type info!')
@@ -63,7 +65,11 @@ export default {
       } else if (usernames.includes(this.input.username)) {
         let index = usernames.indexOf(this.input.username)
         if (this.input.password == passwords[index]) {
-          this.setCurrentUser(this.input.username, this.input.password)
+          this.setCurrentUser(
+            this.input.username,
+            this.input.password,
+            cards[index]
+          )
           this.input.username = ''
           this.input.password = ''
           this.$router.push({ name: 'Main' })
@@ -76,8 +82,8 @@ export default {
         this.validation = true
       }
     },
-    setCurrentUser(username, password) {
-      let user = new User(username, password)
+    setCurrentUser(username, password, cards) {
+      let user = new User(username, password, cards)
       this.$store.commit('setCurrentUser', user)
       this.$store.commit('saveData')
     },

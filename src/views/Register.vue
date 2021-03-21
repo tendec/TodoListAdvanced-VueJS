@@ -73,15 +73,15 @@ export default {
         alert('Password not match!')
         this.validation = true
       } else {
-        this.addUser(this.input.username, this.input.cfpassword)
+        this.addUser(this.input.username, this.input.cfpassword, [])
         this.input.username = ''
         this.input.password = ''
         this.input.cfpassword = ''
         this.$router.push({ name: 'Main' })
       }
     },
-    addUser(username, password) {
-      let user = new User(username, password)
+    addUser(username, password, cards) {
+      let user = new User(username, password, cards)
       this.$store.commit('addUser', user)
       this.$store.commit('setCurrentUser', user)
       this.$store.commit('saveData')

@@ -17,18 +17,26 @@
 
 <script>
 // import Card from '../assets/class/card.js'
+// import Item from '../assets/class/item.js'
 export default {
   name: 'Main',
   data() {
     return {}
   },
   methods: {
-    addCard() {},
+    addCard() {
+      this.$store.commit('addNewCard')
+    },
     onLogoutBtnClick() {
       this.$store.commit('setCurrentUser', null)
       this.$store.commit('saveData')
       this.$router.push({ name: 'Login' })
     }
+  },
+  mounted() {
+    window.addEventListener('load', () => {
+      this.$store.commit('loadData')
+    })
   }
 }
 </script>
