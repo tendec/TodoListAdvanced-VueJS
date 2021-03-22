@@ -1,15 +1,9 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-// import store from './store'
 import Card from './card.js'
-
-Vue.use(Vuex)
-
 export default class User {
   constructor(username, password, cards) {
     this.username = username
     this.password = password
-    this.cards = cards
+    this.cards = []
     if (cards !== undefined) {
       for (let i = 0; i < cards.length; i++) {
         let cardData = cards[i]
@@ -27,8 +21,5 @@ export default class User {
   }
   addNewCard(card) {
     this.cards.push(card)
-    console.log('hit addCard btn!')
-    this.$store.saveData()
-    this.$store.render()
   }
 }

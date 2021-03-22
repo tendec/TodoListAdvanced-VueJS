@@ -97,6 +97,9 @@ export default {
   mounted() {
     window.addEventListener('load', () => {
       this.$store.commit('loadData')
+      if (this.$store.state.currentUser !== null) {
+        this.$router.push({ name: 'Main' })
+      }
     })
   }
 }

@@ -2,7 +2,12 @@
   <div id="main-container">
     <h3 class="title-page">CARDS</h3>
     <div class="card-container">
-      <div class="cards"></div>
+      <div class="cards">
+        <div class="cardItem" v-for="(card, index) in cards" :key="index">
+          {{ card.title }} - {{ card.code1 }} - {{ index }}
+          <!-- {{ card.element }} -->
+        </div>
+      </div>
       <div class="card">
         <input type="text" class="input-info input-title" placeholder="TITLE" />
         <button class="button btn-add" @click="addCard">+</button>
@@ -16,16 +21,20 @@
 </template>
 
 <script>
-// import Card from '../assets/class/card.js'
-// import Item from '../assets/class/item.js'
 export default {
   name: 'Main',
   data() {
     return {}
   },
+  computed: {
+    cards() {
+      return this.$store.state.currentUser.cards
+    }
+  },
   methods: {
     addCard() {
       this.$store.commit('addNewCard')
+      this.$store.commit('saveData')
     },
     onLogoutBtnClick() {
       this.$store.commit('setCurrentUser', null)
@@ -37,7 +46,10 @@ export default {
     window.addEventListener('load', () => {
       this.$store.commit('loadData')
     })
-  }
+  } /* ,
+  create() {
+    this.$store.commit('loadData')
+  } */
 }
 </script>
 
@@ -46,7 +58,28 @@ export default {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  width: 960px;
+}
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 960px;
+  overflow-x: scroll;
+}
+.cardItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 10px;
   width: 300px;
+  height: 300px;
 }
 .card {
   display: flex;
