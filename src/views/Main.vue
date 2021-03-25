@@ -11,6 +11,7 @@
       <div class="card">
         <input type="text" class="input-info input-title" placeholder="TITLE" />
         <button class="button btn-add" @click="addCard">+</button>
+        <button class="button btn-add" @click="removeCard">-</button>
         <input type="text" class="input-info" placeholder="ITEM" />
       </div>
     </div>
@@ -21,11 +22,15 @@
 </template>
 
 <script>
+// import Cards from '../components/cards.js'
 export default {
   name: 'Main',
   data() {
     return {}
-  },
+  } /* ,
+  components: {
+    Cards
+  } */,
   computed: {
     cards() {
       return this.$store.state.currentUser.cards
@@ -36,19 +41,20 @@ export default {
       this.$store.commit('addNewCard')
       this.$store.commit('saveData')
     },
+    removeCard() {
+      this.$store.commit('removeCard')
+      this.$store.commit('saveData')
+    },
     onLogoutBtnClick() {
       this.$store.commit('setCurrentUser', null)
       this.$store.commit('saveData')
       this.$router.push({ name: 'Login' })
     }
-  },
+  } /* ,
   mounted() {
     window.addEventListener('load', () => {
       this.$store.commit('loadData')
     })
-  } /* ,
-  create() {
-    this.$store.commit('loadData')
   } */
 }
 </script>
@@ -57,6 +63,7 @@ export default {
 #main-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   width: 960px;
 }
@@ -70,7 +77,7 @@ export default {
   flex-direction: row;
   justify-content: space-evenly;
   width: 960px;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 .cardItem {
   display: flex;

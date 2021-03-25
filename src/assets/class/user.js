@@ -22,4 +22,7 @@ export default class User {
   addNewCard(card) {
     this.cards.push(card)
   }
+  removeCard() {
+    this.cards.splice(0, this.cards.length)
+  }
 }

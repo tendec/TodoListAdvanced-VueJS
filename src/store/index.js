@@ -20,6 +20,11 @@ export default new Vuex.Store({
     addNewCard(state) {
       let newCard = new Card('', [])
       state.currentUser.addNewCard(newCard)
+      state.users[state.users.indexOf(state.currentUser)] = state.currentUser
+    },
+    removeCard(state) {
+      state.currentUser.removeCard()
+      state.users[state.users.indexOf(state.currentUser)] = state.currentUser
     },
     saveData(state) {
       localStorage.setItem('masterData', JSON.stringify(state))

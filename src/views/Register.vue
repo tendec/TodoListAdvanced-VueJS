@@ -92,12 +92,12 @@ export default {
     onBackBtnClick() {
       this.$router.push({ name: 'Login' })
     }
-  },
+  } /* ,
   mounted() {
     window.addEventListener('load', () => {
       this.$store.commit('loadData')
     })
-  }
+  } */
 }
 </script>
 
@@ -105,6 +105,7 @@ export default {
 #register-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   border: 1px solid black;
   border-radius: 10px;

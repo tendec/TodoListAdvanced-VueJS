@@ -96,7 +96,7 @@ export default {
   },
   mounted() {
     window.addEventListener('load', () => {
-      this.$store.commit('loadData')
+      /* this.$store.commit('loadData') */
       if (this.$store.state.currentUser !== null) {
         this.$router.push({ name: 'Main' })
       }
@@ -109,6 +109,7 @@ export default {
 #login-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   border: 1px solid black;
   border-radius: 10px;
