@@ -3,17 +3,10 @@
     <h3 class="title-page">CARDS</h3>
     <div class="card-container">
       <div class="cards">
-        <div class="cardItem" v-for="(card, index) in cards" :key="index">
-          {{ card.title }} - {{ card.code1 }} - {{ index }}
-          <!-- {{ card.element }} -->
-        </div>
+        <card v-for="(card, index) in cards" :key="index" :data="card" />
       </div>
-      <div class="card">
-        <input type="text" class="input-info input-title" placeholder="TITLE" />
-        <button class="button btn-add" @click="addCard">+</button>
-        <button class="button btn-add" @click="removeCard">-</button>
-        <input type="text" class="input-info" placeholder="ITEM" />
-      </div>
+      <button class="button btn-add" @click="addCard">+</button>
+      <button class="button btn-add" @click="removeCard">-</button>
     </div>
     <button class="button btn-logout" @click="onLogoutBtnClick">
       Log out
@@ -22,15 +15,15 @@
 </template>
 
 <script>
-// import Cards from '../components/cards.js'
+import Card from '../components/Card.vue'
 export default {
   name: 'Main',
   data() {
     return {}
-  } /* ,
+  },
   components: {
-    Cards
-  } */,
+    Card
+  },
   computed: {
     cards() {
       return this.$store.state.currentUser.cards
@@ -50,12 +43,7 @@ export default {
       this.$store.commit('saveData')
       this.$router.push({ name: 'Login' })
     }
-  } /* ,
-  mounted() {
-    window.addEventListener('load', () => {
-      this.$store.commit('loadData')
-    })
-  } */
+  }
 }
 </script>
 

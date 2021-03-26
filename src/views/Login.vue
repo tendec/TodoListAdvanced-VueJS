@@ -31,7 +31,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import User from '../assets/class/user.js'
 export default {
   name: 'Login',
   data() {
@@ -65,11 +64,7 @@ export default {
       } else if (usernames.includes(this.input.username)) {
         let index = usernames.indexOf(this.input.username)
         if (this.input.password == passwords[index]) {
-          this.setCurrentUser(
-            this.input.username,
-            this.input.password,
-            cards[index]
-          )
+          this.setCurrentUser(users[index])
           this.input.username = ''
           this.input.password = ''
           this.$router.push({ name: 'Main' })
@@ -82,8 +77,7 @@ export default {
         this.validation = true
       }
     },
-    setCurrentUser(username, password, cards) {
-      let user = new User(username, password, cards)
+    setCurrentUser(user) {
       this.$store.commit('setCurrentUser', user)
       this.$store.commit('saveData')
     },
@@ -96,7 +90,6 @@ export default {
   },
   mounted() {
     window.addEventListener('load', () => {
-      /* this.$store.commit('loadData') */
       if (this.$store.state.currentUser !== null) {
         this.$router.push({ name: 'Main' })
       }
