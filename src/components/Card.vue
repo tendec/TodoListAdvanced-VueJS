@@ -74,6 +74,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: 'Lobster', cursive;
+}
 .card {
   display: flex;
   flex-direction: column;

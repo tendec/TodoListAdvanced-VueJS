@@ -59,6 +59,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: 'Lobster', cursive;
+}
 ul {
   display: flex;
   flex-direction: row;

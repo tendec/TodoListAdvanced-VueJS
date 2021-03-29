@@ -1,16 +1,17 @@
 <template>
-  <div id="main-container">
-    <h3 class="title-page">CARDS</h3>
-    <div class="card-container">
-      <div class="cards">
-        <card v-for="(card, index) in cards" :key="index" :data="card" />
-      </div>
-      <button class="button btn-add" @click="addCard">+</button>
-      <button class="button btn-add" @click="removeCard">-</button>
+  <div id="container">
+    <h1 class="title-page">TODOs</h1>
+    <div class="cards">
+      <card v-for="(card, index) in cards" :key="index" :data="card" />
     </div>
-    <button class="button btn-logout" @click="onLogoutBtnClick">
-      Log out
-    </button>
+    <button class="button btn-change" @click="addCard">+</button>
+    <button class="button btn-change" @click="removeCard">-</button>
+    <div id="infoCurUser">
+      <div id="info">User: {{ info }}</div>
+      <button class="button" id="btn-logout" @click="onLogoutBtnClick">
+        Log out
+      </button>
+    </div>
   </div>
 </template>
 
@@ -19,7 +20,9 @@ import Card from '../components/Card.vue'
 export default {
   name: 'Main',
   data() {
-    return {}
+    return {
+      info: this.$store.state.currentUser.username
+    }
   },
   components: {
     Card
@@ -48,23 +51,36 @@ export default {
 </script>
 
 <style scoped>
-#main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-  width: 960px;
+* {
+  font-family: 'Lobster', cursive;
 }
-.card-container {
+#container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
+  background-image: linear-gradient(
+    to top left,
+    rgb(253, 183, 183),
+    rgb(250, 73, 73)
+  );
+}
+.title-page {
+  text-shadow: 3px 3px 5px rgb(247, 75, 75);
+}
+.title-page:hover {
+  animation: tada 0.7s;
+}
+#infoCurUser {
+  position: absolute;
+  right: 0px;
+  border: 1px solid black;
 }
 .cards {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 960px;
+  width: 90vw;
   overflow-x: auto;
 }
 .cardItem {
@@ -79,11 +95,12 @@ export default {
 .card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  margin: 20px 30px;
   border: 1px solid black;
   border-radius: 10px;
   width: 300px;
   height: 300px;
+  flex: 0 0 300px;
 }
 .input-info {
   margin: 0 auto;
@@ -97,26 +114,31 @@ export default {
   text-transform: uppercase;
 }
 .button {
-  margin: 0 auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin: 10px;
   border-radius: 5px;
+  border-color: lightcoral;
   padding: 5px 15px;
   width: fit-content;
   background: white;
   cursor: pointer;
+  background-color: transparent;
+  text-shadow: 1px 1px 3px rgb(247, 75, 75);
 }
-.btn-add {
+.button:hover {
+  animation: tada 0.7s;
+}
+.button:focus {
+  outline: none;
+  animation: headShake 0.5s;
+}
+.btn-change {
   border: none;
   font-weight: bold;
   font-size: 36px;
   padding: 0px;
-  transition: transform 0.5s;
 }
-.btn-add:hover {
-  transform: rotate(360deg);
-}
-.btn-add:focus {
-  outline: none;
+#btn-logout {
+  margin-bottom: 50px;
+  font-size: 15px;
 }
 </style>
