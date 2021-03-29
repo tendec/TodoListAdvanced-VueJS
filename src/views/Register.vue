@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+    <div id="deco"></div>
     <div id="ui-container">
       <div class="title">TODO</div>
       <div id="register-container">
@@ -166,7 +167,6 @@ export default {
 <style scoped>
 * {
   font-family: 'Lobster', cursive;
-  /* font-family: 'Pacifico', cursive; */
 }
 #container {
   display: flex;
@@ -176,8 +176,22 @@ export default {
   max-width: 100%;
   background-image: linear-gradient(
     to top left,
-    rgb(253, 183, 183),
-    rgb(250, 73, 73)
+    rgb(181, 249, 211),
+    rgb(115, 235, 174)
+  );
+}
+#deco {
+  width: 750px;
+  height: 750px;
+  position: absolute;
+  left: -145px;
+  border-radius: 40px;
+  box-shadow: 0px 0px 10px 5px rgb(115, 235, 174);
+  transform: rotate(117deg);
+  background-image: linear-gradient(
+    to top left,
+    rgb(181, 249, 211),
+    rgb(115, 235, 174)
   );
 }
 #ui-container {
@@ -185,30 +199,28 @@ export default {
   flex-direction: row;
   align-items: center;
   margin: auto auto;
-  box-shadow: 10px 10px 30px -5px rgb(247, 75, 75);
+  box-shadow: 5px 5px 30px -5px rgb(0, 197, 144);
   border-radius: 10px;
   width: 700px;
   height: 400px;
   backdrop-filter: blur(10px);
-  /* background-image: linear-gradient(
-    to top left,
-    rgb(253, 183, 183),
-    rgb(250, 73, 73)
-  ); */
   animation: bounceIn 0.5s;
 }
 .title {
   flex-grow: 10;
   font-weight: bold;
-  font-size: 120px;
+  font-size: 100px;
   text-align: center;
-  text-shadow: 5px 5px 10px rgb(247, 75, 75);
+  text-shadow: 5px 5px 10px rgb(0, 197, 144);
+  transform: rotate(-30deg);
+  transition: font-size 0.5s;
 }
 .title:hover {
-  animation: tada 1s;
+  /* animation: tada 1s; */
+  font-size: 120px;
 }
 .title-page {
-  text-shadow: 3px 3px 5px rgb(247, 75, 75);
+  text-shadow: 3px 3px 5px rgb(0, 197, 144);
 }
 .title-page:hover {
   animation: tada 0.7s;
@@ -227,7 +239,7 @@ label {
   margin-bottom: 5px;
   align-self: flex-start;
   margin-left: 30px;
-  text-shadow: 1px 1px 3px rgb(247, 75, 75);
+  text-shadow: 1px 1px 3px rgb(0, 197, 144);
 }
 .input-info {
   margin-bottom: 5px;
@@ -238,38 +250,39 @@ label {
   width: 200px;
   line-height: 20px;
   background-color: transparent;
+  transition: border-color 0.5s;
 }
 .input-info:focus {
   outline: none;
+  border-color: rgb(0, 197, 144);
 }
 .eyeP {
   position: absolute;
-  bottom: 221px;
+  bottom: 217px;
   right: 55px;
   cursor: pointer;
 }
 .eyecfP {
   position: absolute;
-  bottom: 168px;
+  bottom: 164px;
   right: 55px;
   cursor: pointer;
 }
 .invalid {
-  background-color: rgba(243, 55, 55, 0.884);
+  background-color: rgb(0, 197, 144);
 }
 .button {
   margin: 10px;
   border-radius: 5px;
-  border-color: lightcoral;
+  border-color: rgb(0, 197, 144);
   padding: 5px 15px;
   width: fit-content;
-  background: white;
   cursor: pointer;
   background-color: transparent;
-  text-shadow: 1px 1px 3px rgb(247, 75, 75);
+  text-shadow: 1px 1px 3px rgb(0, 197, 144);
 }
 .button:hover {
-  animation: tada 0.7s;
+  animation: headShake 1s;
 }
 .button:focus {
   outline: none;

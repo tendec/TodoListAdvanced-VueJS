@@ -23,6 +23,8 @@ export default class User {
     this.cards.push(card)
   }
   removeCard() {
-    this.cards.splice(0, this.cards.length)
+    if (confirm('Confirm remove all cards?')) {
+      this.cards.splice(0, this.cards.length)
+    }
   }
 }

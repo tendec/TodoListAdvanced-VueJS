@@ -31,12 +31,6 @@ export default {
   },
   computed: {
     classColor() {
-      // console.log('colorChange')
-      // return {
-      //   redHighlight: this.data.color === 'red',
-      //   yellowHighlight: this.data.color === 'yellow',
-      //   greenHighlight: this.data.color === 'green'
-      // }
       return this.data.color + 'Highlight'
     }
   },
@@ -53,6 +47,7 @@ export default {
     },
     setPriority(color) {
       this.data.color = color
+      this.$store.commit('saveData')
     }
   }
 }

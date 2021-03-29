@@ -61,42 +61,56 @@ export default {
   height: 100vh;
   background-image: linear-gradient(
     to top left,
-    rgb(253, 183, 183),
-    rgb(250, 73, 73)
+    rgb(181, 249, 211),
+    rgb(115, 235, 174)
   );
 }
 .title-page {
-  text-shadow: 3px 3px 5px rgb(247, 75, 75);
+  text-shadow: 3px 3px 5px rgb(0, 197, 144);
 }
 .title-page:hover {
   animation: tada 0.7s;
 }
 #infoCurUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
+  margin: 20px;
+  padding: 5px;
+  width: 100px;
+  height: 20px;
   right: 0px;
-  border: 1px solid black;
+  border: 1px solid rgb(0, 197, 144);
+  border-radius: 10px;
+  transition: height 0.5s;
+}
+#infoCurUser:hover {
+  height: 70px;
+}
+#btn-logout {
+  margin-bottom: 50px;
+  font-size: 15px;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+#infoCurUser:hover #btn-logout {
+  opacity: 1;
 }
 .cards {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  width: 90vw;
-  overflow-x: auto;
-}
-.cardItem {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid black;
+  flex-wrap: wrap;
+  width: 1100px;
+  overflow: auto;
+  box-shadow: 0px 0px 10px 5px rgb(115, 235, 174);
   border-radius: 10px;
-  width: 300px;
-  height: 300px;
 }
 .card {
   display: flex;
   flex-direction: column;
   margin: 20px 30px;
-  border: 1px solid black;
+  border: none;
+  box-shadow: 5px 5px 30px -5px rgb(0, 197, 144);
   border-radius: 10px;
   width: 300px;
   height: 300px;
@@ -116,16 +130,16 @@ export default {
 .button {
   margin: 10px;
   border-radius: 5px;
-  border-color: lightcoral;
+  border-color: rgb(0, 197, 144);
   padding: 5px 15px;
   width: fit-content;
   background: white;
   cursor: pointer;
   background-color: transparent;
-  text-shadow: 1px 1px 3px rgb(247, 75, 75);
+  text-shadow: 1px 1px 3px rgb(0, 197, 144);
 }
 .button:hover {
-  animation: tada 0.7s;
+  animation: headShake 1s;
 }
 .button:focus {
   outline: none;
@@ -136,9 +150,5 @@ export default {
   font-weight: bold;
   font-size: 36px;
   padding: 0px;
-}
-#btn-logout {
-  margin-bottom: 50px;
-  font-size: 15px;
 }
 </style>

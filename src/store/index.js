@@ -18,8 +18,17 @@ export default new Vuex.Store({
       state.users.push(user)
     },
     addNewCard(state) {
-      let newCard = new Card('', [])
-      state.currentUser.addNewCard(newCard)
+      let cards = state.currentUser.cards
+      let title = []
+      for (let i = 0; i < cards.length; i++) {
+        title.push(cards[i].title)
+      }
+      if (title.includes('')) {
+        alert('New card existed!')
+      } else {
+        let newCard = new Card('', [])
+        state.currentUser.addNewCard(newCard)
+      }
     },
     removeCard(state) {
       state.currentUser.removeCard()
