@@ -1,12 +1,14 @@
 <template>
-  <div class="card">
+  <div class="card" :class="{ doneCard: validation }">
     <input
       v-model="data.title"
       type="text"
       class="input-info input-title"
       placeholder="TITLE"
     />
-    <button class="button" id="btn-remove" @click="removeCard">-</button>
+    <button class="button tooltip" id="btn-remove" @click="removeCard">
+      <span class="tooltiptext">Remove this card</span>-
+    </button>
     <div class="items">
       <item v-for="(item, index) in todos" :key="index" :data="item" />
     </div>
@@ -41,7 +43,9 @@ export default {
     Item
   },
   data() {
-    return {}
+    return {
+      validation: false
+    }
   },
   computed: {
     todos() {
@@ -55,8 +59,11 @@ export default {
       for (let i = 0; i < cards.length; i++) {
         if (cards[i].code1 == code) {
           if (confirm('Confirm remove this card?')) {
-            cards.splice(i, 1)
-            this.$store.commit('saveData')
+            this.validation = true
+            setTimeout(() => {
+              cards.splice(i, 1)
+              this.$store.commit('saveData')
+            }, 500)
           }
         }
       }
@@ -67,16 +74,21 @@ export default {
       for (let i = 0; i < todos.length; i++) {
         contents.push(todos[i].content)
       }
-      if (this.data.content == '') {
-        alert('Type item...!')
-      } else if (contents.includes(this.data.content)) {
-        alert('Todo item existed!')
+      if (this.data.title == '') {
+        alert('Type title card!')
         this.data.content = ''
       } else {
-        let todoItem = new TodoItem(this.data.content, '')
-        this.data.todos.push(todoItem)
-        this.data.content = ''
-        this.$store.commit('saveData')
+        if (this.data.content == '') {
+          alert('Type item...!')
+        } else if (contents.includes(this.data.content)) {
+          alert('Todo item existed!')
+          this.data.content = ''
+        } else {
+          let todoItem = new TodoItem(this.data.content, '')
+          this.data.todos.push(todoItem)
+          this.data.content = ''
+          this.$store.commit('saveData')
+        }
       }
     }
   }
@@ -91,29 +103,25 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid black;
   border-radius: 10px;
   width: 300px;
   height: 300px;
   position: relative;
+  animation: flipInX 0.7s;
 }
 .card:hover .input-title {
-  background-color: rgb(0, 197, 144);
-  border: 1px solid rgb(0, 197, 144);
+  border-bottom: 1px solid rgb(0, 197, 144);
 }
 .card:hover .input-items {
-  background-color: rgb(0, 197, 144);
-  border: 1px solid rgb(0, 197, 144);
+  border-bottom: 1px solid rgb(0, 197, 144);
+  opacity: 1;
 }
 .card:hover #btn-remove {
   transform: scale(1);
 }
 .input-info {
-  margin: 0 auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin: 5px auto;
   padding: 5px;
-  border-radius: 5px;
   width: 200px;
 }
 .input-title {
@@ -121,9 +129,11 @@ export default {
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
+  font-size: 17px;
   background-color: transparent;
-  border: transparent;
-  transition: background-color 0.7s, border 0.7s;
+  border: none;
+  border-bottom: transparent;
+  transition: border-bottom 0.7s;
 }
 .input-title:focus {
   outline: none;
@@ -132,11 +142,37 @@ export default {
   width: fit-content;
   text-align: center;
   background-color: transparent;
-  border: transparent;
-  transition: background-color 0.7s, border 0.7s;
+  opacity: 0;
+  border: none;
+  border-bottom: transparent;
+  transition: border-bottom 0.7s, opacity 0.5s;
 }
 .input-items:focus {
   outline: none;
+}
+.tooltip {
+  position: relative;
+}
+.tooltiptext {
+  transform: scale(0);
+  width: 120px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  border-radius: 10px;
+  background-color: rgb(0, 197, 144);
+  position: absolute;
+  right: 10px;
+  bottom: 12px;
+  transition: transform 0.3s;
+}
+.tooltip:hover .tooltiptext {
+  transform: scale(1);
+}
+.doneCard {
+  animation: flipOutX 0.5s;
 }
 .button {
   margin: 0px;
@@ -144,7 +180,6 @@ export default {
   border-color: rgb(0, 197, 144);
   padding: 5px 15px;
   width: fit-content;
-  background: white;
   cursor: pointer;
   background-color: transparent;
   text-shadow: 1px 1px 3px rgb(0, 197, 144);
@@ -155,7 +190,6 @@ export default {
   font-size: 36px;
   padding: 0px;
   line-height: 5px;
-  transition: transform 0.5s;
   position: absolute;
   right: 17px;
   top: 12px;
@@ -163,12 +197,32 @@ export default {
   transition: transform 0.5s;
 }
 #btn-remove:hover {
-  transform: rotate(360deg);
+  animation: headShake 1s;
 }
 #btn-remove:focus {
   outline: none;
 }
 .items {
+  height: 225px;
+  overflow-x: auto;
   overflow-y: auto;
+}
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(0, 197, 144);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(0, 197, 144);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(0, 170, 125);
+}
+::-webkit-scrollbar-corner {
+  display: none;
 }
 </style>

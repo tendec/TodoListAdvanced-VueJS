@@ -4,8 +4,12 @@
     <div class="cards">
       <card v-for="(card, index) in cards" :key="index" :data="card" />
     </div>
-    <button class="button btn-change" @click="addCard">+</button>
-    <button class="button btn-change" @click="removeCard">-</button>
+    <button class="button btn-change tooltip" @click="addCard">
+      <span class="tooltiptext">Add new card</span>+
+    </button>
+    <button class="button btn-change tooltip" @click="removeCard">
+      <span class="tooltiptext">Remove all cards</span>-
+    </button>
     <div id="infoCurUser">
       <div id="info">User: {{ info }}</div>
       <button class="button" id="btn-logout" @click="onLogoutBtnClick">
@@ -100,8 +104,9 @@ export default {
 .cards {
   display: flex;
   flex-wrap: wrap;
-  width: 1100px;
-  overflow: auto;
+  width: 1090px;
+  overflow-y: auto;
+  overflow-x: hidden;
   box-shadow: 0px 0px 10px 5px rgb(115, 235, 174);
   border-radius: 10px;
 }
@@ -150,5 +155,44 @@ export default {
   font-weight: bold;
   font-size: 36px;
   padding: 0px;
+}
+.tooltip {
+  position: relative;
+}
+.tooltiptext {
+  transform: scale(0);
+  width: 120px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  border-radius: 10px;
+  background-color: rgb(0, 197, 144);
+  position: absolute;
+  right: 15px;
+  bottom: 35px;
+  transition: transform 0.3s;
+}
+.tooltip:hover .tooltiptext {
+  transform: scale(1);
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(0, 197, 144);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(0, 197, 144);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(0, 170, 125);
+}
+::-webkit-scrollbar-corner {
+  display: none;
 }
 </style>
