@@ -71,6 +71,7 @@ export default {
 }
 .title-page {
   text-shadow: 3px 3px 5px rgb(0, 197, 144);
+  animation: bounceIn 0.5s;
 }
 .title-page:hover {
   animation: tada 0.7s;
@@ -88,6 +89,7 @@ export default {
   border: 1px solid rgb(0, 197, 144);
   border-radius: 10px;
   transition: height 0.5s;
+  animation: bounceIn 0.5s;
 }
 #infoCurUser:hover {
   height: 70px;
@@ -109,6 +111,7 @@ export default {
   overflow-x: hidden;
   box-shadow: 0px 0px 10px 5px rgb(115, 235, 174);
   border-radius: 10px;
+  animation: bounceIn 0.5s;
 }
 .card {
   display: flex;
@@ -138,7 +141,6 @@ export default {
   border-color: rgb(0, 197, 144);
   padding: 5px 15px;
   width: fit-content;
-  background: white;
   cursor: pointer;
   background-color: transparent;
   text-shadow: 1px 1px 3px rgb(0, 197, 144);
@@ -155,6 +157,7 @@ export default {
   font-weight: bold;
   font-size: 36px;
   padding: 0px;
+  animation: bounceIn 0.5s;
 }
 .tooltip {
   position: relative;
